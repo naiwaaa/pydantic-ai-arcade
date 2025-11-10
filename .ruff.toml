@@ -1,0 +1,101 @@
+cache-dir = ".cache/ruff"
+extend-exclude = [".cache"]
+fix = true
+line-length = 90
+preview = true
+src = [".", "tests"]
+
+[format]
+docstring-code-format = true
+line-ending = "lf"
+preview = true
+
+[lint]
+future-annotations = true
+select = ["ALL"]
+ignore = [
+  # Missing docstring in public module
+  "D100",
+  # Missing docstring in public class
+  "D101",
+  # Missing docstring in public method
+  "D102",
+  # Missing docstring in public function
+  "D103",
+  # Missing docstring in public package
+  "D104",
+  # Missing docstring in magic method
+  "D105",
+  # Missing docstring in __init__
+  "D107",
+  # `return` is not documented in docstring
+  "DOC201",
+  # Trailing comma missing
+  "COM812",
+  # Implicitly concatenated string literals on one line
+  "ISC001",
+  # Missing copyright notice at top of file
+  "CPY001",
+]
+preview = true
+
+[lint.per-file-ignores]
+"**/scripts/*" = [
+  # `print` found
+  "T201",
+  # File {filename} is part of an implicit namespace package. Add an __init__.py.
+  "INP001",
+]
+"**/tests/**/*" = [
+  # Use of assert detected
+  "S101",
+]
+
+[lint.flake8-boolean-trap]
+extend-allowed-calls = ["pydantic.Field"]
+
+[lint.flake8-bugbear]
+extend-immutable-calls = []
+
+[lint.flake8-pytest-style]
+fixture-parentheses = true
+mark-parentheses = true
+
+[lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[lint.flake8-type-checking]
+exempt-modules = ["typing", "pydantic_ai"]
+runtime-evaluated-base-classes = [
+  "pydantic.BaseModel",
+  "pydantic_settings.BaseSettings",
+]
+runtime-evaluated-decorators = [
+  "pydantic_ai.Agent.tool",
+]
+strict = true
+
+[lint.isort]
+lines-after-imports = 2
+required-imports = ["from __future__ import annotations"]
+section-order = [
+  "future",
+  "standard-library",
+  "third-party",
+  "testing",
+  "first-party",
+  "local-folder",
+]
+
+[lint.isort.sections]
+testing = ["pytest", "pytest_mock", "hypothesis", "respx"]
+
+[lint.pep8-naming]
+classmethod-decorators = ["pydantic.validator"]
+
+[lint.pydocstyle]
+convention = "google"
+
+[lint.pylint]
+max-args = 6
+max-returns = 7
